@@ -1,5 +1,6 @@
 package com.simplelogin
 
+import android.content.Intent
 import android.media.MediaDrm
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -13,20 +14,41 @@ import android.widget.Toast
 class MainActivity : AppCompatActivity() {
     //obtenemos el modelo donde guardamos los datos
     val mapDatos = model();
-
+    var campoText:EditText?=null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val btnEnviar : Button = findViewById(R.id.btnEnviar);
-        btnEnviar.setOnClickListener{onClick()}
+        campoText=findViewById(R.id.TxtPersonName)
+
+        val btnEnviar : Button = findViewById(R.id.btnEnviar)
+        btnEnviar.setOnClickListener{onClick(1)}
+
+        val btnPantalla2 : Button = findViewById(R.id.btnPantalla2)
+        btnPantalla2.setOnClickListener{onClick(2)}
+
 
     }
 
-    private fun onClick(){
+    private fun onClick(boton : Int){
         // Obtenemos datos
-        mostrarDatos()
+        when(boton){
+            1 -> {
+                mostrarDatos()
+            }
+            2 ->{
+                // se crea el intent encargada de la comunicaión entre actividades
+                val intent = Intent(this,ActivityMenssage::class.java)
+                // creamos el bundle para el paso de informacion entre actividades
+                val miBundle:Bundle= Bundle()
+                miBundle.putString("nombre",campoText!!.text.toString())
+                //Le agregamos la informacion al intent para que sea enviada
+                intent.putExtras(miBundle)
+                //Le agregamos el llamado a la nueva actividad
+                startActivity(intent)
+            }
+        }
 
     }
 
