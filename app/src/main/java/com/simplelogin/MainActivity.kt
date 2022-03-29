@@ -17,6 +17,11 @@ class MainActivity : AppCompatActivity() {
     var campoText:EditText?=null
 
     override fun onCreate(savedInstanceState: Bundle?) {
+
+        Thread.sleep(2000)
+        //Llamamos setTheme y buscamos el Style
+        setTheme(R.style.AppTheme)
+
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
